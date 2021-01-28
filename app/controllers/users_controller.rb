@@ -31,7 +31,10 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to new_user_path, notice: "アカウントを削除しました"
   end
-
+  
+  def index
+    @users = User.all
+  end
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
