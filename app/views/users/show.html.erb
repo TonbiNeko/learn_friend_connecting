@@ -1,4 +1,21 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス：<%= @user.email %></p>
-<%= link_to 'Edit profile', edit_user_path(@user.id) %>
-<%= link_to "Delete your account", user_path(@user.id),method: :delete, data: { confirm: "削除してよろしいですか？" } %>
+
+<p>フォローしている人<p>
+<% @user.following.each do |following| %>
+  <ul>
+    <li><%= following.name %></li>
+  </ul>
+<% end %>
+
+<p>フォローされている人<p>
+<% @user.followers.each do |follower| %>
+  <ul>
+    <li><%= follower.name %></li>
+  </ul>
+<% end %>
+
+<% if current_user == @user %>
+  <%= link_to 'Edit profile', edit_user_path(@user.id) %>
+  <%= link_to "Delete your account", user_path(@user.id),method: :delete, data: { confirm: "削除してよろしいですか？" } %>
+<% end %>
